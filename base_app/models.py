@@ -17,9 +17,9 @@ class Room(models.Model):
     #null means database can't have an instance of this model with this being blank, null is default False, so we set it to true so that it can be blank
     # same for blank, blank is for form validation, if it's empty then ok
     description = models.TextField(null=True, blank=True) 
-    # participants =
-    updated = models.DateTimeField(auto_now=True) #for timestammp on save
-    created = models.DateTimeField(auto_now_add=True) #timestap only on create
+    participants = models.ManyToManyField(User, related_name='participants', blank=True) #specify, as User is already used for host
+    updated = models.DateTimeField(auto_now=True) #for timestamp on save
+    created = models.DateTimeField(auto_now_add=True) #timestamp only on create
 
     class Meta:
         ordering = ['-updated', '-created'] # order in reverse 
@@ -33,6 +33,9 @@ class Message(models.Model):
     body = models.TextField()
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-updated', '-created']
 
     def __str__(self):
         return self.body[0:50] #preview first 50 characters
