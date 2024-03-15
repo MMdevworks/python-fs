@@ -4,5 +4,5 @@ from .models import Room
 class RoomForm(ModelForm):
     class Meta:
         model = Room
-        fields = '__all__' # will create form based on the metadata in models.py else can specify in a list
-        
+        fields = '__all__' # will create form based on the metadata in models.py
+        exclude = ['host', 'participants'] #excluded fields for form
